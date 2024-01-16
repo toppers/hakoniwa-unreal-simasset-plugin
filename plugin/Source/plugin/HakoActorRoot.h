@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "HakoAsset.h"
 #include "HakoActorRoot.generated.h"
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class PLUGIN_API UHakoActorRoot : public UActorComponent

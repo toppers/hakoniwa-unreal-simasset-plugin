@@ -21,7 +21,22 @@ void UHakoActorRoot::BeginPlay()
 {
 	Super::BeginPlay();
     UE_LOG(LogTemp, Warning, TEXT("HELLO WORLD!!"));
-	
+	IModuleInterface* plugin = FModuleManager::Get().LoadModule("plugin");
+	if (plugin == nullptr) {
+		UE_LOG(LogTemp, Error, TEXT("can not get plugin"));
+	}
+	else {
+		HakoAsset* hako_module = FModuleManager::GetModulePtr<HakoAsset>("plugin");
+		if (hako_module != nullptr)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Loaded HakoAsset"));
+			hako_module->InitializeAsset();
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("can not get HakoAsset"));
+		}
+	}
 }
 
 
