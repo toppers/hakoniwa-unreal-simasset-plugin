@@ -17,5 +17,7 @@ public:
 
     // モジュールの終了時に呼ばれる関数
     virtual void ShutdownModule() override;
-	void InitializeAsset();
+	bool InitializeAsset();
+private:
+	FRunnableThread* RunnableThread;
 };
