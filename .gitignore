@@ -96,3 +96,9 @@ Desktop.ini
 # バックアップファイル
 *~
 *.bak
+
+# ビルド生成物の無視
+Build/
+
+# 自動生成されたコンテンツの無視
+plugin/Content/_GENERATED/
