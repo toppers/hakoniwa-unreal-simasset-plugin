@@ -72,3 +72,27 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Unreal Engine 一般的な除外
+Binaries/
+Intermediate/
+Saved/
+*.user
+*.userprefs
+*.vshost.*
+DerivedDataCache/
+*.uproject.user
+
+# その他の一般的な除外
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ビルド結果
+*.pdb
+*.ilk
+
+
+# バックアップファイル
+*~
+*.bak
