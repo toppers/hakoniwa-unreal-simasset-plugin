@@ -13,6 +13,7 @@ public:
     virtual bool Init() override;
     virtual uint32 Run() override;
     virtual void Stop() override;
-
+    uint64 GetHakoSimTimeUsec();
+    bool NotifyAssetSimTimeUsec(uint64 asset_simtime_usec);
 protected:
 };

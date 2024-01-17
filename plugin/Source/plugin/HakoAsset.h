@@ -4,7 +4,7 @@
 #include "CoreMinimal.h"
 
 #include "Modules/ModuleManager.h"
-
+#include "HakoAssetTask.h"
 
 /**
  * 
@@ -18,6 +18,10 @@ public:
     // モジュールの終了時に呼ばれる関数
     virtual void ShutdownModule() override;
 	bool InitializeAsset();
+	void FinalizeAsset();
+    uint64 GetHakoSimTimeUsec();
+    bool NotifyAssetSimTimeUsec(uint64 asset_simtime_usec);
 private:
-	FRunnableThread* RunnableThread;
+    HakoAssetTask* RunnableTask = nullptr;
+	FRunnableThread* RunnableThread = nullptr;
 };
