@@ -21,13 +21,16 @@ public class plugin : ModuleRules
         
         // To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
         // ThirdParty/AssetsLibrary ディレクトリへのパス
-        string ThirdPartyPath = Path.Combine(ModuleDirectory, "../../../hakoniwa-core-cpp-client");
-        string LibCorePath = Path.Combine(ThirdPartyPath, "cmake-build/core/src");
-        string DyLibCorePath = Path.Combine(ThirdPartyPath, "cmake-build/src/assets");
-        string IncludePath = Path.Combine(ThirdPartyPath, "src/include");
+        string ThirdPartyCorePath = Path.Combine(ModuleDirectory, "../../../hakoniwa-core-cpp-client");
+        string ThirdPartyPduPath = Path.Combine(ModuleDirectory, "../../../hakoniwa-ros2pdu");
+        string LibCorePath = Path.Combine(ThirdPartyCorePath, "cmake-build/core/src");
+        string DyLibCorePath = Path.Combine(ThirdPartyCorePath, "cmake-build/src/assets");
+        string IncludeCorePath = Path.Combine(ThirdPartyCorePath, "src/include");
+        string IncludePduPath = Path.Combine(ThirdPartyPduPath, "pdu/types");
         
         // ヘッダーファイルへのパスを追加
-        PublicIncludePaths.AddRange(new string[] { IncludePath });
+        PublicIncludePaths.AddRange(new string[] { IncludeCorePath });
+        PublicIncludePaths.AddRange(new string[] { IncludePduPath });
 
         // 静的ライブラリへのリンクを追加
         PublicAdditionalLibraries.Add(Path.Combine(LibCorePath, "libhako.a"));

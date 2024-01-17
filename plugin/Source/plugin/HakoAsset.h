@@ -5,6 +5,7 @@
 
 #include "Modules/ModuleManager.h"
 #include "HakoAssetTask.h"
+#include "hako_asset.h"
 
 /**
  * 
@@ -21,6 +22,12 @@ public:
 	void FinalizeAsset();
     uint64 GetHakoSimTimeUsec();
     bool NotifyAssetSimTimeUsec(uint64 asset_simtime_usec);
+    // PDU読み込み関数
+    int ReadPdu(const FString& RoboName, HakoPduChannelIdType Channel, char* Buffer, int pdu_size);
+
+    // PDU書き込み関数
+    int WritePdu(const FString& RoboName, HakoPduChannelIdType Channel, const char* Buffer, int pdu_size);
+
 private:
     HakoAssetTask* RunnableTask = nullptr;
 	FRunnableThread* RunnableThread = nullptr;

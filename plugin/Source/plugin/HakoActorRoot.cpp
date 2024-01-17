@@ -4,6 +4,7 @@
 #include "HakoActorRoot.h"
 #include "Logging/LogMacros.h"
 #include "Misc/OutputDevice.h"
+#include "geometry_msgs/pdu_ctype_Twist.h"
 
 // Sets default values for this component's properties
 UHakoActorRoot::UHakoActorRoot()
@@ -57,6 +58,30 @@ void UHakoActorRoot::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 			hako_module->NotifyAssetSimTimeUsec(asset_simtime_usec);
 			//UE_LOG(LogTemp, Log, TEXT("NotifyAssetSimTimeUsec() return true: DeltaTime: %f"), DeltaTime);
 			//TODO simulation task
+			FString RoboName = "DroneAvator";
+			HakoPduChannelIdType Channel = 1;
+			char Buffer[48];
+			int ret = hako_module->ReadPdu(RoboName, Channel, Buffer, sizeof(Buffer));
+			//UE_LOG(LogTemp, Warning, TEXT("ReadPdu ret: %d"), ret);
+			Hako_Twist *pos = (Hako_Twist*)(Buffer);
+			//UE_LOG(LogTemp, Warning, TEXT("ReadPdu pos: %f %f %f"), pos->linear.x, pos->linear.y, pos->linear.z);
+			//UE_LOG(LogTemp, Warning, TEXT("ReadPdu rot: %f %f %f"), pos->angular.x, pos->angular.y, pos->angular.z);
+			// 位置の設定
+			FVector NewLocation(pos->linear.x * 100.0f, pos->linear.y * 100.0f, pos->linear.z * 100.0f);
+
+			// 姿勢の設定
+			FRotator NewRotation(
+				FMath::RadiansToDegrees(pos->angular.x),
+				FMath::RadiansToDegrees(pos->angular.y),
+				FMath::RadiansToDegrees(pos->angular.z)
+			);
+			AActor* ParentActor = GetOwner();
+			if (ParentActor)
+			{
+				ParentActor->SetActorLocation(NewLocation);
+				ParentActor->SetActorRotation(NewRotation);
+			}
+
 		}
 		else {
 			// can not step next so skip...

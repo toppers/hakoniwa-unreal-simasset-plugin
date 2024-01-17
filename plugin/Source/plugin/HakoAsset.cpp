@@ -65,3 +65,18 @@ bool HakoAsset::NotifyAssetSimTimeUsec(uint64 asset_simtime_usec)
     }
     return false;
 }
+
+
+int HakoAsset::ReadPdu(const FString& RoboName, HakoPduChannelIdType Channel, char* Buffer, int pdu_size)
+{
+    // BufferをANSI文字列に変換
+    int Result = hako_asset_pdu_read(TCHAR_TO_ANSI(*RoboName), Channel, Buffer, pdu_size);
+    
+    return Result;
+}
+
+int HakoAsset::WritePdu(const FString& RoboName, HakoPduChannelIdType Channel, const char* Buffer, int pdu_size)
+{
+    // TArray<uint8>をANSI文字列に変換
+    return hako_asset_pdu_write(TCHAR_TO_ANSI(*RoboName), Channel, Buffer, pdu_size);
+}
