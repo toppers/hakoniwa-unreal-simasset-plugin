@@ -21,7 +21,7 @@ bool HakoAssetTask::Init()
     int ret = hako_asset_register("UnrealHakoAsset", path, &my_callback, 1000);
     if (ret != 0) {
         UE_LOG(LogTemp, Error, TEXT("hako_asset_register() error: ret = %d"), ret);
-        return true;
+        return false;
     }
     UE_LOG(LogTemp, Log, TEXT("hako_asset_register() success."));
 
@@ -30,6 +30,13 @@ bool HakoAssetTask::Init()
 
 uint32 HakoAssetTask::Run()
 {
+    int ret = hako_asset_start();
+    if (ret != 0) {
+        UE_LOG(LogTemp, Error, TEXT("hako_asset_start() error: ret = %d"), ret);
+        return ret;
+    }
+    UE_LOG(LogTemp, Log, TEXT("hako_asset_start() success."));
+
     return 0;
 }
 
@@ -41,29 +48,23 @@ void HakoAssetTask::Stop()
 
 static int my_on_initialize(hako_asset_context_t* context)
 {
-    printf("INFO: my_on_initialize enter\n");
-    printf("INFO: sleep 1sec\n");
-    usleep(1000*1000);
-    printf("INFO: my_on_initialize exit\n");
+    UE_LOG(LogTemp, Log, TEXT("my_on_initialize() success."));
     return 0;
 }
 static int my_on_reset(hako_asset_context_t* context)
 {
-    printf("INFO: my_on_reset enter\n");
-    printf("INFO: sleep 1sec\n");
-    usleep(1000*1000);
-    printf("INFO: my_on_reset exit\n");
+    UE_LOG(LogTemp, Log, TEXT("my_on_reset() success."));
     return 0;
 }
 
 static int my_on_manual_timing_control(hako_asset_context_t* context)
 {
     UE_LOG(LogTemp, Warning, TEXT("my_on_manual_timing_control() enter"));
-    int result = 1;
+    int result = 0;
     while (result == 0) {
         printf("INFO: sleep 1sec: %llu\n", hako_asset_simulation_time());
+        UE_LOG(LogTemp, Warning, TEXT("simtime: %lld"), hako_asset_simulation_time());
         result = hako_asset_usleep(1000);
-        usleep(1000*1000);
     }
     UE_LOG(LogTemp, Warning, TEXT("my_on_manual_timing_control() exit"));
     return 0;
