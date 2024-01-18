@@ -65,6 +65,7 @@ void HakoAssetTask::Stop()
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
     UE_LOG(LogTemp, Warning, TEXT("HakoAssetTask: Stop() exit."));
+    background_thread_stop = false;
     return;
 }
 

@@ -67,13 +67,13 @@ void UHakoActorRoot::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 			//UE_LOG(LogTemp, Warning, TEXT("ReadPdu pos: %f %f %f"), pos->linear.x, pos->linear.y, pos->linear.z);
 			//UE_LOG(LogTemp, Warning, TEXT("ReadPdu rot: %f %f %f"), pos->angular.x, pos->angular.y, pos->angular.z);
 			// 位置の設定
-			FVector NewLocation(pos->linear.x * 100.0f, pos->linear.y * 100.0f, pos->linear.z * 100.0f);
+			FVector NewLocation(pos->linear.x * 100.0f, -pos->linear.y * 100.0f, pos->linear.z * 100.0f);
 
 			// 姿勢の設定
 			FRotator NewRotation(
-				FMath::RadiansToDegrees(pos->angular.x),
 				FMath::RadiansToDegrees(pos->angular.y),
-				FMath::RadiansToDegrees(pos->angular.z)
+				FMath::RadiansToDegrees(pos->angular.z),
+				FMath::RadiansToDegrees(pos->angular.x)
 			);
 			AActor* ParentActor = GetOwner();
 			if (ParentActor)
