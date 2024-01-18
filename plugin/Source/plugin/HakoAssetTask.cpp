@@ -6,7 +6,6 @@
 #include <filesystem>
 #include <thread>
 
-#define HAKO_ASSET_DELTAT_TIME_USEC 1000
 static int my_on_initialize(hako_asset_context_t* context);
 static int my_on_reset(hako_asset_context_t* context);
 static int my_on_manual_timing_control(hako_asset_context_t* context);
@@ -18,11 +17,13 @@ static hako_asset_callbacks_t my_callback = {
 };
 FCriticalSection Mutex;
 
-std::atomic<uint64> my_asset_simtime_usec;
+static std::atomic<uint64>  req_asset_simtime_usec = 0;
+static std::atomic<uint64>  current_simtime_usec = 0;
 
 bool HakoAssetTask::Init()
 {
-    my_asset_simtime_usec = 0;
+    req_asset_simtime_usec = 0;
+    current_simtime_usec = 0;
     //TODO absolute path to config settings.
     const char* path = "/Users/tmori/project/oss/hakoniwa-unreal-simasset-plugin/plugin/custom.json";
     int ret = hako_asset_register("UnrealHakoAsset", path, &my_callback, HAKO_ASSET_DELTAT_TIME_USEC);
@@ -38,10 +39,21 @@ uint64 HakoAssetTask::GetHakoSimTimeUsec()
 {
     return hako_asset_simulation_time();
 }
+uint64 HakoAssetTask::GetAssetSimTimeUsec()
+{
+    return current_simtime_usec;
+}
+
 bool HakoAssetTask::NotifyAssetSimTimeUsec(uint64 asset_simtime_usec)
 {
-    my_asset_simtime_usec = asset_simtime_usec;
-    return true;
+    if (req_asset_simtime_usec == current_simtime_usec) {
+        req_asset_simtime_usec = asset_simtime_usec;
+        return true;
+    }
+    else {
+        //doing..
+        return false;
+    }
 }
 
 uint32 HakoAssetTask::Run()
@@ -73,11 +85,15 @@ void HakoAssetTask::Stop()
 static int my_on_initialize(hako_asset_context_t* context)
 {
     UE_LOG(LogTemp, Log, TEXT("my_on_initialize() success."));
+    req_asset_simtime_usec = 0;
+    current_simtime_usec = 0;
     return 0;
 }
 static int my_on_reset(hako_asset_context_t* context)
 {
     UE_LOG(LogTemp, Log, TEXT("my_on_reset() success."));
+    req_asset_simtime_usec = 0;
+    current_simtime_usec = 0;
     return 0;
 }
 
@@ -87,16 +103,13 @@ static int my_on_manual_timing_control(hako_asset_context_t* context)
     UE_LOG(LogTemp, Warning, TEXT("my_on_manual_timing_control() enter"));
     int result = 0;
     result = hako_asset_usleep(1);
-    uint64 current_simtime_usec = my_asset_simtime_usec;
     while (result == 0) {
-        uint64 tmp_asset_simtime_usec = my_asset_simtime_usec;
         //UE_LOG(LogTemp, Warning, TEXT("world_simtime_usec: %lld"), hako_asset_simulation_time());
-        //UE_LOG(LogTemp, Warning, TEXT("tmp_asset_simtime_usec: %lld"), tmp_asset_simtime_usec);
         //UE_LOG(LogTemp, Warning, TEXT("current_simtime_usec: %lld"), current_simtime_usec);
-        if (tmp_asset_simtime_usec > current_simtime_usec) {
-            uint64 sleep_time_usec = tmp_asset_simtime_usec - current_simtime_usec;
+        if (req_asset_simtime_usec > current_simtime_usec) {
+            uint64 sleep_time_usec = req_asset_simtime_usec - current_simtime_usec;
             result = hako_asset_usleep(sleep_time_usec);
-            current_simtime_usec = tmp_asset_simtime_usec;
+            current_simtime_usec += sleep_time_usec;
         }
         else {
             //nothing to do

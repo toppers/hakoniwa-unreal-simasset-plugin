@@ -13,7 +13,6 @@ class PLUGIN_API UHakoActorRoot : public UActorComponent
 	GENERATED_BODY()
 
 	HakoAsset* hako_module;
-	uint64 asset_simtime_usec;
 public:	
 	// Sets default values for this component's properties
 	UHakoActorRoot();

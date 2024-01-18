@@ -21,7 +21,7 @@ public:
 	bool InitializeAsset();
 	void FinalizeAsset();
     uint64 GetHakoSimTimeUsec();
-    bool NotifyAssetSimTimeUsec(uint64 asset_simtime_usec);
+    bool NotifyAssetSimTimeUsec(uint64 delta_time_usec);
     // PDU読み込み関数
     int ReadPdu(const FString& RoboName, HakoPduChannelIdType Channel, char* Buffer, int pdu_size);
 
@@ -31,4 +31,5 @@ public:
 private:
     HakoAssetTask* RunnableTask = nullptr;
 	FRunnableThread* RunnableThread = nullptr;
+    uint64 AssetSimTimeUsec = 0;
 };

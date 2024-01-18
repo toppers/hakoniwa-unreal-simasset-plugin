@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
+#define HAKO_ASSET_DELTAT_TIME_USEC 1000
 /**
  * 
  */
@@ -14,6 +14,7 @@ public:
     virtual uint32 Run() override;
     virtual void Stop() override;
     uint64 GetHakoSimTimeUsec();
+    uint64 GetAssetSimTimeUsec();
     bool NotifyAssetSimTimeUsec(uint64 asset_simtime_usec);
 protected:
 };

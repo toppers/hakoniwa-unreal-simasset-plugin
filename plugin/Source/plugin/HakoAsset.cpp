@@ -40,12 +40,14 @@ void HakoAsset::ShutdownModule()
 bool HakoAsset::InitializeAsset()
 {
     UE_LOG(LogTemp, Log, TEXT("InitializeAsset() Enter"));
+    AssetSimTimeUsec = 0;
     RunnableTask = new HakoAssetTask();
     RunnableThread = FRunnableThread::Create(RunnableTask, TEXT("HakoAssetTaskThread"));
     if (RunnableThread == nullptr) {
         UE_LOG(LogTemp, Error, TEXT("InitializeAsset() error Exit: can not create thread"));
         return false;
     }
+    RunnableTask->NotifyAssetSimTimeUsec(AssetSimTimeUsec + HAKO_ASSET_DELTAT_TIME_USEC);
     UE_LOG(LogTemp, Log, TEXT("InitializeAsset() Exit"));
     return true;
 }
@@ -57,11 +59,22 @@ uint64 HakoAsset::GetHakoSimTimeUsec()
     }
     return 0;
 }
-bool HakoAsset::NotifyAssetSimTimeUsec(uint64 asset_simtime_usec)
+bool HakoAsset::NotifyAssetSimTimeUsec(uint64 delta_time_usec)
 {
     if (RunnableTask != nullptr)
     {
-        return RunnableTask->NotifyAssetSimTimeUsec(asset_simtime_usec);
+        if (AssetSimTimeUsec < GetHakoSimTimeUsec()) {
+            if (RunnableTask->NotifyAssetSimTimeUsec(AssetSimTimeUsec + delta_time_usec)) {
+                AssetSimTimeUsec += delta_time_usec;
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
     }
     return false;
 }

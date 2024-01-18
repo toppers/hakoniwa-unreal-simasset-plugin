@@ -21,7 +21,6 @@ UHakoActorRoot::UHakoActorRoot()
 void UHakoActorRoot::BeginPlay()
 {
 	Super::BeginPlay();
-	asset_simtime_usec = 0;
 	IModuleInterface* plugin = FModuleManager::Get().LoadModule("plugin");
 	if (plugin == nullptr) {
 		UE_LOG(LogTemp, Error, TEXT("can not get plugin"));
@@ -45,17 +44,15 @@ void UHakoActorRoot::BeginPlay()
 void UHakoActorRoot::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	uint64 delta_simtime_usec = static_cast<uint64>(DeltaTime * 1000000.0);
 	//uint64 delta_simtime_usec = 1000; /* 1msec */
-	uint64 next_simtime_usec = asset_simtime_usec + delta_simtime_usec;
+	//uint64 next_simtime_usec = asset_simtime_usec + delta_simtime_usec;
 	//UE_LOG(LogTemp, Log, TEXT("DeltaTime: %f"), DeltaTime);
 	//UE_LOG(LogTemp, Log, TEXT("asset_simtime_usec: %llu"), asset_simtime_usec);
 	//UE_LOG(LogTemp, Log, TEXT("delta_simtime_usec: %llu"), delta_simtime_usec);
 	//UE_LOG(LogTemp, Log, TEXT("next_simtime_usec: %llu"), next_simtime_usec);
 	if (hako_module != nullptr) {
-		if (asset_simtime_usec < hako_module->GetHakoSimTimeUsec()) {
-			asset_simtime_usec = next_simtime_usec;
-			hako_module->NotifyAssetSimTimeUsec(asset_simtime_usec);
+		uint64 delta_simtime_usec = static_cast<uint64>(DeltaTime * 1000000.0);
+		if (hako_module->NotifyAssetSimTimeUsec(delta_simtime_usec)) {
 			//UE_LOG(LogTemp, Log, TEXT("NotifyAssetSimTimeUsec() return true: DeltaTime: %f"), DeltaTime);
 			//TODO simulation task
 			FString RoboName = "DroneAvator";
