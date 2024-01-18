@@ -1,2 +1,29 @@
-# hakoniwa-unreal-simasset-plugin
-hakoniwa-unreal-simasset-plugin: A versatile plugin for Unreal Engine, designed to integrate and manage sandbox-style API sets for enhanced simulation and game development capabilities.
+このリポジトリは、Unreal Engine5 で開発したゲームを箱庭と連携して実行できるようにするためのプラグイン機能開発リポジトリです。
+
+# アジェンダ
+
+- [動作環境](#動作環境)
+- [アーキテクチャ](#アーキテクチャ)
+- [インストール手順](#インストール手順)
+- [シミュレーション手順](#シミュレーション手順)
+- [内部設計情報](#内部設計情報)
+
+# 動作環境
+
+サポート状況は以下のとおりです。
+
+- [X] MacOS(AppleSilicon)
+- [ ] MacOS(Intel)
+- [ ] Windows
+- [ ] Ubuntu
+
+# アーキテクチャ
+
+# インストール手順
+
+# シミュレーション手順
+
+# 内部設計情報
+
+# その他
+
