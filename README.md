@@ -89,6 +89,62 @@ Unreal Engineで作成されたゲームアプリケーションを `箱庭プ�
 
 # シミュレーション手順
 
+シミュレーションを実行するには、最初に箱庭コンダクタを起動しておく必要があります。
+
+Unreal Engine 側のシミュレーションボタンは、下図のようになっていることを確認してください。
+
+![スクリーンショット 2024-01-19 7 08 56](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/50323f61-70f9-472f-87dc-cad493ef0a08)
+
+なっていない場合は、右にあるボタンをクリックして、`シミュレート`を選択すると切り替わります。
+
+![スクリーンショット 2024-01-19 7 09 37](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/7b62cd65-728a-4ed7-a017-4d9aad6a8263)
+
+この状態で、シミュレーション開始ボタンをクリックします。
+
+成功すると、以下のメッセージが出力されます。
+
+```
+LogTemp: Loaded HakoAsset
+LogTemp: InitializeAsset() Enter
+LogTemp: hako_asset_register() success.
+LogTemp: InitializeAsset() Exit
+PIE: サーバーにログインしました
+```
+
+次に、箱庭コマンドで、箱庭としてのシミュレーションを開始します。
+
+```
+hako-cmd start
+```
+
+成功すると、以下のメッセージが出力されます。
+
+```
+PIE: PIE合計開始時間 0.163 秒。
+LogTemp: my_on_initialize() success.
+LogTemp: Warning: my_on_manual_timing_control() enter
+```
+
+また、Unreal Engineエディタは下図のようになり、シミュレーションが始まります。
+
+![スクリーンショット 2024-01-19 7 13 06](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/4d82d1cc-a499-4be6-a740-b641efc94c87)
+
+シミュレーションを停止するには、上手の赤いボタンをクリックし、箱庭コンダクタを停止してください。
+
+なお、Unreal Engineの出力メッセージとしては、以下のものが出力されます。
+
+```
+LogTemp: Warning: EndPlay
+LogTemp: Warning: FinalizeAsset() Enter
+LogTemp: Warning: HakoAssetTask: Stop() start.
+LogTemp: Warning: my_on_manual_timing_control() exit
+LogTemp: hako_asset_start() success.
+LogTemp: Warning: HakoAssetTask: Stop() exit.
+LogTemp: HakoAssetModule FinalizeAsset() Exit
+```
+
+
+
 # 内部設計情報
 
 # その他
