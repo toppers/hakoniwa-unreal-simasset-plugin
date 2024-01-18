@@ -40,72 +40,10 @@ Unreal Engineで作成されたゲームアプリケーションを `箱庭プ�
 以下の手順でインストールしてください。
 
 1. [UE5のインストール](https://docs.unrealengine.com/5.3/ja/installing-unreal-engine/)
-2. 箱庭のインストール
-3. 箱庭プラグインのインストール
+2. [箱庭のインストール](https://github.com/toppers/hakoniwa-core-cpp-client/tree/main/examples#サンプルプログラムを実行するための準備)
+  * リンク先の手順の `hakoniwa-core-cpp-client` は不要です。
+  * 本リポジトリーをクローンすると、直下に  `hakoniwa-core-cpp-client` 配置されています。
 
-## 箱庭のインストール
-
-まず、本リポジトリーをクローンします。
-
-```
-git clone --recursive https://github.com/toppers/hakoniwa-unreal-simasset-plugin.git
-```
-
-ディレクトリ移動：
-
-```
-cd hakoniwa-unreal-simasset-plugin/hakoniwa-core-cpp-client 
-```
-
-**ビルド:**
-
-```
-bash build.bash
-```
-
-**インストール:**
-
-```
-bash install.bash
-```
-
-インストール時に、/usr/local/lib/hakoniwa と /usr/local/bin/hakoniwa へのアクセス許可が必要になることがあります。この許可を与えると、箱庭のライブラリやコマンドがこれらのディレクトリに配置されます。
-
-
-**環境変数の設定:**
-
-インストールが成功した後、これらのパスを環境変数に設定してください。
-
-Ubuntuの場合:
-
-~/.bashrc ファイルに以下の行を追加してください。
-
-```sh
-export LD_LIBRARY_PATH=/usr/local/lib/hakoniwa:$LD_LIBRARY_PATH
-export PATH=/usr/local/bin/hakoniwa:$PATH
-```
-
-変更を反映させるために、次のコマンドを実行します。
-
-```sh
-source ~/.bashrc
-```
-
-macOSの場合：
-
-使用しているシェルに応じて ~/.bash_profile または ~/.zshrc に以下の行を追加します。
-
-```sh
-export DYLD_LIBRARY_PATH=/usr/local/lib/hakoniwa:$DYLD_LIBRARY_PATH
-export PATH=/usr/local/bin/hakoniwa:$PATH
-```
-
-変更を反映させるために、次のコマンドを実行します。
-
-```sh
-source ~/.bash_profile  # Bashの場合
-source ~/.zshrc         # Zshの場合
-```
 
 # シミュレーション手順
 
