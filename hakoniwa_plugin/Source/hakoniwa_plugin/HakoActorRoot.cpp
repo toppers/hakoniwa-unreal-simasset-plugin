@@ -40,7 +40,7 @@ void UHakoActorRoot::BeginPlay()
 void UHakoActorRoot::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-#if 0
+
 	if (hako_module != nullptr) {
 		uint64 delta_simtime_usec = static_cast<uint64>(DeltaTime * 1000000.0);
 		if (hako_module->NotifyAssetSimTimeUsec(delta_simtime_usec)) {
@@ -68,7 +68,6 @@ void UHakoActorRoot::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 			// can not step next so skip...
 		}
 	}
-#endif
 
 }
 void UHakoActorRoot::EndPlay(const EEndPlayReason::Type EndPlayReason)

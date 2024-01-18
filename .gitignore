@@ -101,4 +101,5 @@ Desktop.ini
 Build/
 
 # 自動生成されたコンテンツの無視
+hakoniwa_plugin/Content/_GENERATED/
 plugin/Content/_GENERATED/
