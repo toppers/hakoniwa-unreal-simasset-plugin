@@ -42,7 +42,49 @@ Unreal Engineで作成されたゲームアプリケーションを `箱庭プ�
 1. [UE5のインストール](https://docs.unrealengine.com/5.3/ja/installing-unreal-engine/)
 2. [箱庭のインストール](https://github.com/toppers/hakoniwa-core-cpp-client/tree/main/examples#サンプルプログラムを実行するための準備)
   * リンク先の手順の `hakoniwa-core-cpp-client` は不要です。
-  * 本リポジトリーをクローンすると、直下に  `hakoniwa-core-cpp-client` 配置されています。
+  * 本リポジトリーをクローンすると、直下に  `hakoniwa-core-cpp-client` が配置されていますので、そちらからインストールを進めてください。
+3. Unreal Engine箱庭プラグインを利用した開発環境の起動
+
+## Unreal Engine箱庭プラグインを利用した開発環境の起動
+
+### Unreal Engine エディタの起動
+
+まず、下図の`起動` ボタンを押して、起動してください。
+
+<img width="1199" alt="スクリーンショット 2024-01-19 6 40 31" src="https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/93e094c8-3073-470d-927e-bb8698dffecd">
+
+成功すると、プロジェクトブラウザが起動します。
+
+<img width="1191" alt="スクリーンショット 2024-01-19 6 44 13" src="https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/ec7780bd-6565-4231-bfbe-fc3bc61b560a">
+
+画面右下にある `開く` ボタンを押して、クローンしたリポジトリの場所を参照します（下図）。 
+
+<img width="795" alt="スクリーンショット 2024-01-19 6 42 50" src="https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/a5bdaf32-f2a1-42d1-8cac-4e84404c4f60">
+
+`hakoniwa_plugin` を選択して、`hakoniwa_plugin.uproject ` を `Open` してください。
+
+<img width="792" alt="スクリーンショット 2024-01-19 6 46 24" src="https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/77a9e99c-0801-45bc-9163-c6a0dc686dff">
+
+成功すると、Unreal Engineエディタが起動します。
+
+![スクリーンショット 2024-01-19 6 48 06](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/8fa67343-78f4-4b1c-b05c-da1b8de2ec4f)
+
+起動直後は、レベルが選択されていませんので、メニューの `ファイル` -> `レベルを開く` を選択し、下図の `Hakoniwa` をクリックしてください。
+
+
+![スクリーンショット 2024-01-19 6 48 56](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/8548ba7f-9613-4635-93cd-25133ee1d0da)
+
+成功すると、試作中のレベルが表示されます。
+
+![スクリーンショット 2024-01-19 6 50 50](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/a6cb4436-54a7-46ed-9170-212c0756f690)
+
+エディタの画面右下に、コンパイルボタンがありますので、クリックしてコンパイルします。
+
+![スクリーンショット 2024-01-19 6 51 32](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/2f6e84a3-a88e-473a-af61-99e3d0efd8ac)
+
+成功すると、キキっという音と共に、コンパイル成功メッセージが出力されます。
+
+![スクリーンショット 2024-01-19 6 52 21](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/8ddae2b8-0455-43d9-96b0-f4f98da1aa14)
 
 
 # シミュレーション手順
