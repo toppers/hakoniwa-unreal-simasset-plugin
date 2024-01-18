@@ -47,7 +47,7 @@ bool HakoAsset::InitializeAsset()
         UE_LOG(LogTemp, Error, TEXT("InitializeAsset() error Exit: can not create thread"));
         return false;
     }
-    RunnableTask->NotifyAssetSimTimeUsec(AssetSimTimeUsec + HAKO_ASSET_DELTAT_TIME_USEC);
+    //RunnableTask->NotifyAssetSimTimeUsec(AssetSimTimeUsec + HAKO_ASSET_DELTAT_TIME_USEC);
     UE_LOG(LogTemp, Log, TEXT("InitializeAsset() Exit"));
     return true;
 }
@@ -73,6 +73,8 @@ bool HakoAsset::NotifyAssetSimTimeUsec(uint64 delta_time_usec)
             }
         }
         else {
+            //UE_LOG(LogTemp, Log, TEXT("AssetSimTimeUsec: %llu"), AssetSimTimeUsec);
+            //UE_LOG(LogTemp, Log, TEXT("GetHakoSimTimeUsec: %llu"), GetHakoSimTimeUsec());
             return false;
         }
     }
