@@ -143,9 +143,52 @@ LogTemp: Warning: HakoAssetTask: Stop() exit.
 LogTemp: HakoAssetModule FinalizeAsset() Exit
 ```
 
-
-
 # 内部設計情報
+
+箱庭プラグインは、以下の３つのクラスで構成されています。
+
+* HakoActorRoot
+* HakoAssetModule
+* HakoAssetTask
+
+## HakoActorRoot
+
+[HakoActorRoot](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/blob/main/hakoniwa_plugin/Source/hakoniwa_plugin/HakoActorRoot.h) の役割は、Unreal Engineと箱庭を繋げるための入り口になります。
+
+具体的には、Unreal Engineからのシミュレーションイベントを以下の関数で受け取ります。
+
+* BeginPlay()
+  * シミュレーション開始イベントを補足して、箱庭のシミュレーションを開始させます。
+* TickComponent()
+  * シミュレーション実行中の定期イベントを補足して、箱庭のシミュレーションを実行させます。
+  * この際、箱庭のシミュレーション時間の同期を行います。
+  * シミュレーション時間の同期で、箱庭時間が遅い場合は、シミュレーションの処理は行わないようにします。
+  * なお、Unreal Engineでは、Unityのような FixedUpdate()イベント（物理エンジンと連動したコールバック関数）が存在しないため、フレームレートでの駆動としています。
+* EndPlay()
+  * シミュレーションの停止イベントを補足して、箱庭のシミュレーションを停止させます。
+
+内部実装は[こちら](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/blob/main/hakoniwa_plugin/Source/hakoniwa_plugin/HakoActorRoot.cpp)。
+
+## HakoAssetModule
+
+[HakoAssetModule](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/blob/main/hakoniwa_plugin/Source/hakoniwa_plugin/HakoAssetModule.h) の役割は、箱庭アセットAPIをUnreal Engine側に提供することです。
+
+内部実装は[こちら](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/blob/main/hakoniwa_plugin/Source/hakoniwa_plugin/HakoAssetModule.cpp)。
+
+
+## HakoAssetTask
+
+[HakoAssetTask](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/blob/main/hakoniwa_plugin/Source/hakoniwa_plugin/HakoAssetTask.h) の役割は、箱庭のシミュレーション時間同期をすることです。
+
+内部実装は[こちら](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/blob/main/hakoniwa_plugin/Source/hakoniwa_plugin/HakoAssetTask.cpp)。
+
+全体的な処理フローは下図のとおり。
+
+![スクリーンショット 2024-01-19 7 28 44](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/c7a050fe-69e4-4234-a74a-b486b969e3c7)
+
 
 # その他
 
+本リポジトリは、まだ試作中のものです。
+
+今後、正式対応に向けてより利用しやすい機能セットにしていく予定です。
