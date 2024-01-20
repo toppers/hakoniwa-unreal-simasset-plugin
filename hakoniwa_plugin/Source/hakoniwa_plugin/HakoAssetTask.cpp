@@ -38,7 +38,7 @@ bool HakoAssetTask::Init()
 
     //UE_LOG(LogTemp, Warning, TEXT("custom.json path: %s"), CharPath);
     UE_LOG(LogTemp, Log, TEXT("hako_asset_register() success."));
-    int ret = hako_asset_register("UnrealHakoAsset", CharPath, &my_callback, HAKO_ASSET_DELTAT_TIME_USEC);
+    int ret = hako_asset_register("UnrealHakoAsset", CharPath, &my_callback, HAKO_ASSET_DELTAT_TIME_USEC, HAKO_ASSET_MODEL_PLANT);
     if (ret != 0) {
         UE_LOG(LogTemp, Error, TEXT("hako_asset_register() error: ret = %d"), ret);
         return false;

@@ -30,8 +30,8 @@ Unreal Engineで作成されたゲームアプリケーションを `箱庭プ�
 その他の箱庭モジュールについては、以下を参照ください。
 
 * [箱庭コア機能](https://github.com/toppers/hakoniwa-core-cpp-client)
-* 箱庭コンダクタ
-* [箱庭コマンド](https://github.com/toppers/hakoniwa-conductor)
+* [箱庭コンダクタ](https://github.com/toppers/hakoniwa-conductor)
+* 箱庭コマンド
 
 # インストール手順
 
