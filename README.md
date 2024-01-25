@@ -21,7 +21,8 @@
 
 アーキテクチャ構成は下図のとおりです。
 
-![スクリーンショット 2024-01-19 6 17 41](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/dd56c3bf-f3a0-455f-9627-882409a2b65b)
+![スクリーンショット 2024-01-26 6 23 03](https://github.com/toppers/hakoniwa-unreal-simasset-plugin/assets/164193/86f51ad2-a79e-48b7-a76b-183ca6f566c1)
+
 
 Unreal Engineで作成されたゲームアプリケーションを `箱庭プラグイン` に接続することで、箱庭シミュレーション環境上で連携動作できるようになります。
 
